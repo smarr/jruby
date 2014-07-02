@@ -14,10 +14,32 @@
     <jruby.home>${basedir}/../..</jruby.home>
     <tesla.dump.readonly>true</tesla.dump.readonly>
     <main.basedir>${project.parent.parent.basedir}</main.basedir>
+    <jruby.plugins.version>1.0.3</jruby.plugins.version>
     <tesla.dump.pom>pom.xml</tesla.dump.pom>
   </properties>
+  <dependencies>
+    <dependency>
+      <groupId>rubygems</groupId>
+      <artifactId>ruby-maven</artifactId>
+      <version>3.1.1.0.7</version>
+      <type>gem</type>
+    </dependency>
+  </dependencies>
   <build>
     <plugins>
+      <plugin>
+        <groupId>de.saumya.mojo</groupId>
+        <artifactId>gem-maven-plugin</artifactId>
+        <version>${jruby.plugins.version}</version>
+        <executions>
+          <execution>
+            <phase>process-classes</phase>
+            <goals>
+              <goal>initialize</goal>
+            </goals>
+          </execution>
+        </executions>
+      </plugin>
       <plugin>
         <artifactId>maven-dependency-plugin</artifactId>
         <executions>

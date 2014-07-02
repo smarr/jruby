@@ -9,6 +9,14 @@
   </formats>
   <fileSets>
     <fileSet>
+      <directory>${project.build.directory}/rubygems</directory>
+      <outputDirectory>/lib/ruby/gems/shared</outputDirectory>
+      <includes>
+        <include>gems/**</include>
+        <include>specifications/**</include>
+      </includes>
+    </fileSet>
+    <fileSet>
       <directory>${project.build.directory}/META-INF/jruby.home</directory>
       <outputDirectory>/</outputDirectory>
     </fileSet>
