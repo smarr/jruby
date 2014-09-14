@@ -53,6 +53,8 @@
   </organization>
 
   <properties>
+    <its.j2ee>j2ee*/pom.xml</its.j2ee>
+    <its.osgi>osgi*/pom.xml</its.osgi>
     <invoker.skip>true</invoker.skip>
     <project.build.sourceEncoding>utf-8</project.build.sourceEncoding>
     <jruby.plugins.version>1.0.0-rc4</jruby.plugins.version>
@@ -339,6 +341,10 @@
           <configuration>
 	    <skip>true</skip>
 	    <streamLogs>true</streamLogs>
+	    <pomExcludes>
+	      <pomExclude>${its.j2ee}</pomExclude>
+	      <pomExclude>${its.osgi}</pomExclude>
+	    </pomExcludes>
           </configuration>
         </plugin>
 
@@ -441,6 +447,52 @@
       </modules>
       <build>
 	<defaultGoal>install</defaultGoal>
+      </build>
+    </profile>
+    <profile>
+      <id>osgi</id>
+      <modules>
+        <module>maven</module>
+      </modules>
+      <properties>
+	<invoker.skip>false</invoker.skip>
+	<its.osgi>no-excludes/pom.xml</its.osgi>
+      </properties>
+      <build>
+	<defaultGoal>install</defaultGoal>
+	<plugins>
+          <plugin>
+            <artifactId>maven-invoker-plugin</artifactId>
+            <configuration>
+              <pomIncludes>
+                <pomInclude>osgi*/pom.xml</pomInclude>
+	      </pomIncludes>
+	    </configuration>
+	  </plugin>
+	</plugins>
+      </build>
+    </profile>
+    <profile>
+      <id>j2ee</id>
+      <modules>
+        <module>maven</module>
+      </modules>
+      <properties>
+	<invoker.skip>false</invoker.skip>
+	<its.j2ee>no-excludes/pom.xml</its.j2ee>
+      </properties>
+      <build>
+	<defaultGoal>install</defaultGoal>
+	<plugins>
+          <plugin>
+            <artifactId>maven-invoker-plugin</artifactId>
+            <configuration>
+              <pomIncludes>
+                <pomInclude>j2ee*/pom.xml</pomInclude>
+	      </pomIncludes>
+	    </configuration>
+	  </plugin>
+	</plugins>
       </build>
     </profile>
     <profile>

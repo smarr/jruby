@@ -57,6 +57,17 @@ project 'JRuby Artifacts' do
 
   end
 
+  profile 'osgi' do
+    modules [ 'jruby',
+              'jruby-stdlib',
+              'jruby-complete' ]
+  end
+
+  profile 'j2ee' do
+    modules [ 'jruby',
+              'jruby-stdlib' ]
+  end
+
   profile 'rake-plugin' do
 
     modules [ 'jruby-rake-plugin' ]
