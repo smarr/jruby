@@ -1413,8 +1413,8 @@ public class RubyInstanceConfig {
     private ProfileOutput profileOutput = new ProfileOutput(System.err);
     private String profilingService;
     
-    private ClassLoader contextLoader = Thread.currentThread().getContextClassLoader();
-    private ClassLoader loader = contextLoader == null ? RubyInstanceConfig.class.getClassLoader() : contextLoader;
+    private ClassLoader thisLoader = RubyInstanceConfig.class.getClassLoader();
+    private ClassLoader loader = thisLoader == null ? Thread.currentThread().getContextClassLoader() : thisLoader;
 
     // from CommandlineParser
     private List<String> loadPaths = new ArrayList<String>();
