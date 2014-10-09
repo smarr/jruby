@@ -682,6 +682,16 @@
       </modules>
     </profile>
     <profile>
+      <id>jars-test</id>
+      <build>
+        <defaultGoal>install</defaultGoal>
+      </build>
+      <modules>
+        <module>test</module>
+        <module>maven</module>
+      </modules>
+    </profile>
+    <profile>
       <id>clean</id>
       <build>
         <defaultGoal>clean</defaultGoal>
