@@ -329,12 +329,19 @@ public class RubyInstanceConfig {
 
     // We require the home directory to be absolute
     private static String verifyHome(String home, PrintStream error) {
+        if (home.equals("uri:classloader:/META-INF/jruby.home" )) {
+            return home;
+        }
         if (home.equals(".")) {
             home = SafePropertyAccessor.getProperty("user.dir");
         }
-        if (home.startsWith("cp:")) {
+        else if (home.startsWith("cp:")) {
             home = home.substring(3);
-        } else if (!home.startsWith("file:") && !home.startsWith("classpath:") && !home.startsWith("uri:")) {
+        }
+        if (home.startsWith("jar:") && home.startsWith("file:") && home.startsWith("classpath:") && home.startsWith("uri:")) {
+            error.println("Warning: JRuby home with uri like pathes may not support full functionality - use at your own risks");
+        }
+        else {
             NormalizedFile f = new NormalizedFile(home);
             if (!f.isAbsolute()) {
                 home = f.getAbsolutePath();
