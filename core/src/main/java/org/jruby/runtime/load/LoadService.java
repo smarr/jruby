@@ -1013,7 +1013,7 @@ public class LoadService {
             }
             return library;
         }
-        return library;
+        return null;
     }
 
     @Deprecated

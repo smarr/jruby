@@ -1,6 +1,7 @@
 package org.jruby.embed;
 
 import java.net.URL;
+import java.util.Arrays;
 
 /**
  * the IsolatedScriptingContainer detects the whether it is used with
@@ -66,14 +67,14 @@ public class IsolatedScriptingContainer extends ScriptingContainer {
         if (cl == null) cl = Thread.currentThread().getContextClassLoader();
         setClassLoader( cl );
 
+        setLoadPaths( Arrays.asList( "uri:classloader:" ) );
+
         // set the right jruby home
         setHomeDirectory( "uri:classloader:" + JRUBY_HOME );
-        
-        // clean up LOAD_PATH
-        runScriptlet( "$LOAD_PATH.delete_if{|p| p =~ /jar$/ }" );
 
         // setup the isolated GEM_PATH, i.e. without $HOME/.gem/**
-        runScriptlet("Gem::Specification.reset;"
+        runScriptlet("require 'rubygems/defaults/jruby';"
+                + "Gem::Specification.reset;"
                 + "Gem::Specification.add_dir 'uri:classloader:" + JRUBY_HOME + "/lib/ruby/gems/shared';"
                 + "Gem::Specification.add_dir 'uri:classloader:';");
     }
